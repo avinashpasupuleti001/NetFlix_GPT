@@ -7,8 +7,6 @@ export default function ValidateEmail(email, password) {
     if (!passwordRegex) {
         return "InValid Password";
     } 
-    // if (emailRegex && passwordRegex) {
-    //     return "Valid Email and Password";
-    // }
+    return null;
 }
     
