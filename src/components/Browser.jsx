@@ -1,9 +1,10 @@
 import React from 'react'
+import Header from './Header.jsx'
 
 const Browser = () => {
   return (
     <div>
-      <h1>Browser Page</h1>
+      <Header/>
     </div>
   )
 }

@@ -24,8 +24,8 @@ const Body = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in, redirect to the browser page
-                const { uid, email, displayName } = user;
-                dispatch(addUser({ uid, email, displayName }));
+                const { uid, email, displayName , photoURL } = user;
+                dispatch(addUser({ uid, email, displayName, photoURL }));
                 
             } else {
                 // User is signed out, redirect to the login page

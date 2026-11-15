@@ -5,16 +5,20 @@ import { useNavigate } from 'react-router-dom'
 import ValidateEmail from '../utils/Validate'
 import { auth } from '../utils/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { updateProfile } from 'firebase/auth'
+import { useDispatch } from 'react-redux'
 
 const Login = () => {
     const [signIn, setSignIn] = useState(false)
     const [error, setError] = useState(false)
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const toggleSign = () => {
         setSignIn(!signIn);
     }
     const email = useRef(null);
     const password = useRef(null);
+    const name = useRef(null);
 
     const handleButton = () => {
         console.log(email.current.value, password.current.value);
@@ -29,7 +33,13 @@ const Login = () => {
                         // Signed in
                         const user = userCredential.user;
                         console.log("User signed up:", user);
-                        navigate("/browser");
+                        updateProfile(user, {
+                            displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/246433740?v=4"
+                        }).then(() => {
+                            const { uid, email, displayName, photoURL } = auth.currentUser;
+                            dispatch(addUser({ uid, email, displayName, photoURL }));
+                            navigate("/browser");
+                        });
                     })
                     .catch((error) => {
                         const errorCode = error.code;
@@ -60,7 +70,7 @@ const Login = () => {
                     <form onSubmit={(e) => e.preventDefault()} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 p-5 rounded-lg text-white">
                         <h1 className="font-bold text-3xl py-4">{signIn ? "Sign In" : "Sign Up"}</h1>
                         <input ref={email} type="text" placeholder="Email Address" className="p-2 m-2 w-full bg-gray-500 rounded-lg" />
-                        {!signIn && <input type="text" placeholder="Enter the Name" className="p-2 m-2 w-full bg-gray-500 rounded-lg" />}
+                        {!signIn && <input ref={name} type="text" placeholder="Enter the Name" className="p-2 m-2 w-full bg-gray-500 rounded-lg" />}
                         <input ref={password} type="password" placeholder="Password" className="p-2 m-2 w-full bg-gray-500 rounded-lg" />
                         <button onClick={handleButton} className="bg-red-700 text-white p-2 m-2 w-full">{signIn ? "Sign In" : "Sign Up"}</button>
                         <p className="py-4 cursor-pointer" onClick={toggleSign}>{signIn ? "New to Netflix? Sign up now" : "Already Registered? Sign in now"} </p>
