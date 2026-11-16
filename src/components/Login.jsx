@@ -1,7 +1,5 @@
-
 import Header from './Header'
 import React, { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
 import ValidateEmail from '../utils/Validate'
 import { auth } from '../utils/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
@@ -11,7 +9,6 @@ import { useDispatch } from 'react-redux'
 const Login = () => {
     const [signIn, setSignIn] = useState(false)
     const [error, setError] = useState(false)
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const toggleSign = () => {
         setSignIn(!signIn);
@@ -38,7 +35,6 @@ const Login = () => {
                         }).then(() => {
                             const { uid, email, displayName, photoURL } = auth.currentUser;
                             dispatch(addUser({ uid, email, displayName, photoURL }));
-                            navigate("/browser");
                         });
                     })
                     .catch((error) => {
@@ -52,7 +48,7 @@ const Login = () => {
                         // Signed in
                         const user = userCredential.user;
                         console.log("User signed in:", user);
-                        navigate("/browser");
+
                     })
                     .catch((error) => {
                         const errorCode = error.code;
