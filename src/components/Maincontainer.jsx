@@ -11,7 +11,7 @@ const Maincontainer = () => {
     console.log(mainMovie);
     const {title,overview,id}=mainMovie;
   return (
-    <div>
+      <div className="relative w-full aspect-video overflow-hidden">
           <VideoTitle title={title} overview={overview} />
           <VideBg movieId={id} />
     </div>
