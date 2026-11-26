@@ -7,7 +7,11 @@ import useUpcoming from '../hooks/useUpcoming.js'
 import SecondaryContainer from './SecondaryContainer.jsx';
 import Maincontainer from './Maincontainer.jsx';
 import GptSearch from './GptSearch.jsx'
+import { useSelector } from 'react-redux'
+import store from '../utils/appStore.js'
 const Browser = () => {
+  const gptval = useSelector((store) => store.gpt.showgpt);
+  console.log(gptval)
   useNowPlaying();
   useTrending();
   usePopular();
@@ -15,10 +19,13 @@ const Browser = () => {
 
   return (
     <div>
-      <GptSearch/>
       <Header />
-      <Maincontainer />
-      <SecondaryContainer/>
+      {gptval ? (<GptSearch />) :
+        <>
+        <Maincontainer />
+        <SecondaryContainer/>
+        </>
+      }
     </div>
   )
 }

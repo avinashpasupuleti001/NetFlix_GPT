@@ -5,7 +5,7 @@ import { auth } from '../utils/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { updateProfile } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
-import { photoURL }  from '../utils/constants'
+import { bgUrl, photoURL }  from '../utils/constants'
 
 const Login = () => {
     const [signIn, setSignIn] = useState(false)
@@ -62,7 +62,7 @@ const Login = () => {
         return (
             <div>
                 <Header />
-                <div><img src="https://assets.nflxext.com/ffe/siteui/vlv3/5aa70728-e223-472f-9230-babd8f6ba166/web/IN-en-20261019-TRIFECTA-perspective_79fa76c2-2cb2-4d20-8de2-f696f3b6131e_small.jpg" alt="Netflix Background" className="w-full h-screen object-cover" /></div>
+                <div><img src={bgUrl} alt="Netflix Background" className="w-full h-screen object-cover" /></div>
                 <div>
                     <form onSubmit={(e) => e.preventDefault()} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 p-5 rounded-lg text-white">
                         <h1 className="font-bold text-3xl py-4">{signIn ? "Sign In" : "Sign Up"}</h1>
