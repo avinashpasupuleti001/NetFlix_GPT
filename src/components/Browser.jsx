@@ -6,6 +6,7 @@ import usePopular from '../hooks/usePopular.js'
 import useUpcoming from '../hooks/useUpcoming.js'
 import SecondaryContainer from './SecondaryContainer.jsx';
 import Maincontainer from './Maincontainer.jsx';
+import GptSearch from './GptSearch.jsx'
 const Browser = () => {
   useNowPlaying();
   useTrending();
@@ -14,6 +15,7 @@ const Browser = () => {
 
   return (
     <div>
+      <GptSearch/>
       <Header />
       <Maincontainer />
       <SecondaryContainer/>

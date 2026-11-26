@@ -8,10 +8,15 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { addUser, removeUser } from '../utils/userSlice'
 import { logo } from '../utils/constants'
+import { toggleState } from '../utils/GptSlice'
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user=useSelector((state)=>state.user.user);
+  const user = useSelector((state) => state.user.user);
+  function handleGPT() {
+      dispatch(toggleState());
+      console.log("hello");
+  }
   function handlesignout() {
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -40,6 +45,7 @@ const Header = () => {
       <img src= {logo} alt="Logo" className="h-10 w-auto" />
       {user && (
         <div className="flex p-2">
+          <button className="px-4 py-2 mx-2 my-1 bg-purple-800 text-white rounded" onClick={handleGPT}>Gpt Search</button>
           <img src={user.photoURL} alt="Profile" className="h-10 w-10 rounded-full object-cover" />
           <button onClick={handlesignout} className="text-white hover:text-gray-300 font-bold">sign out</button>
         </div>
